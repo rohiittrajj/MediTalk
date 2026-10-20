@@ -1,11 +1,12 @@
 # MediTalk
+Live Demo Link- file:///C:/Users/saksh/OneDrive/Desktop/meditalk/MediTalk/index.html
 
 MediTalk is a patient-history intelligence and clinical preparation platform. It helps patients share medical history through accessible voice and touch interactions, organizes information from medical documents, and prepares a structured history for clinician review.
 
 MediTalk does not autonomously diagnose or prescribe and does not replace qualified healthcare professionals.
 
 ## Initial stack
-- Frontend: Next.js App Router, React, TypeScript
+- Frontend: Html,css,javaScript,react.js
 - API: Python, FastAPI, Pydantic
 - Database: PostgreSQL; SQLAlchemy and Alembic planned
 - Tests: Pytest, Vitest/Testing Library, Playwright
