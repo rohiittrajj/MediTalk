@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Assistant — MediTalk</title>
+  <meta name="description" content="MediTalk voice assistant — speak your medical history using the browser's speech recognition." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar navbar-expand-lg navbar-meditalk sticky-top" aria-label="Main navigation">
+  <div class="container">
+    <a class="navbar-brand-mt" href="index.html" aria-label="MediTalk Home">
+      <span class="brand-mark" aria-hidden="true">MT</span>
+      <span>MediTalk</span>
+    </a>
+    <button class="navbar-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4" style="color:var(--mt-text);"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link-mt" href="index.html" data-i18n="nav.home">Home</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="register.html" data-i18n="nav.register">1. Register</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="chat.html" data-i18n="nav.case_taking">2. Case-Taking</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="image-analysis.html" data-i18n="nav.scan">3. Scan Docs</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="ayush.html" data-i18n="nav.ayush">4. AYUSH</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="summary.html" data-i18n="nav.summary">5. Summary</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="doctor-dashboard.html" data-i18n="nav.doctor">Doctor Portal</a></li>
+        <li class="nav-item ms-lg-2">
+          <a class="btn btn-mt-primary btn-sm" href="login.html" data-i18n="nav.signin">Staff Sign In</a>
+        </li>
+      </ul>
+      <div id="langSelectorContainer" class="d-flex align-items-center ms-lg-3 my-2 my-lg-0"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ PAGE ══════════════════════════════ -->
+<div class="container py-4">
+
+  <div class="row g-4">
+
+    <!-- Left: Mic interface -->
+    <div class="col-lg-5">
+      <h1 class="h5 fw-800 mb-1">Voice Assistant</h1>
+      <p class="text-muted-mt mb-3" style="font-size:.88rem;">Speak your medical history. Your words appear as text in real time.</p>
+
+      <!-- Browser support warning (shown by JS if needed) -->
+      <div id="noSupportMsg" class="disclaimer-banner mb-3" style="display:none;background:#fee2e2;border-color:#fca5a5;color:#7f1d1d;">
+        <i class="bi bi-mic-mute-fill" style="color:var(--mt-danger);"></i>
+        <div>
+          <strong>Speech recognition not available.</strong><br>
+          Please use <strong>Google Chrome</strong> or <strong>Microsoft Edge</strong> for voice features.
+          You can still use the <a href="chat.html" style="color:var(--mt-blue);">AI Chat</a> to type your history.
+        </div>
+      </div>
+
+      <!-- Privacy note -->
+      <div class="disclaimer-banner mb-4" style="background:var(--mt-teal-light);border-color:var(--mt-teal);">
+        <i class="bi bi-shield-check-fill" style="color:var(--mt-teal);"></i>
+        <div style="font-size:.82rem;">
+          <strong>Privacy:</strong> Speech recognition runs entirely in your browser using the Web Speech API. 
+          No audio is recorded or stored by MediTalk. No paid API is used.
+        </div>
+      </div>
+
+      <!-- Language selector -->
+      <div class="mb-4">
+        <label class="form-label-mt" for="langSelect">Recognition Language</label>
+        <select id="langSelect" class="input-mt" style="cursor:pointer;" aria-label="Select recognition language">
+          <option value="en-IN" selected>English (India)</option>
+          <option value="en-US">English (US)</option>
+          <option value="en-GB">English (UK)</option>
+          <option value="hi-IN">हिंदी (Hindi)</option>
+        </select>
+      </div>
+
+      <!-- Microphone button -->
+      <div class="text-center mb-4">
+        <div class="mic-btn-wrap mb-3" style="height:130px;">
+          <button id="micBtn" class="mic-btn" type="button"
+                  aria-label="Start voice input" aria-pressed="false">
+            <i class="bi bi-mic-fill"></i>
+          </button>
+          <div id="micRipple" class="mic-ripple" style="display:none;" aria-hidden="true"></div>
+        </div>
+        <p id="voiceStatus" style="font-size:.88rem;color:var(--mt-text-muted);margin-top:1rem;" role="status" aria-live="polite">
+          Click the microphone button to start speaking.
+        </p>
+      </div>
+
+      <!-- Tips -->
+      <div class="card-mt p-3">
+        <h3 class="h6 fw-700 mb-2"><i class="bi bi-lightbulb text-warning me-2"></i>Tips for best results</h3>
+        <ul style="font-size:.85rem;color:var(--mt-text-muted);margin:0;padding-left:1.2rem;line-height:1.9;">
+          <li>Speak clearly and at a natural pace</li>
+          <li>Mention symptom names, durations, and severity</li>
+          <li>Allow microphone permission when prompted</li>
+          <li>Works best in a quiet environment</li>
+          <li>Use Chrome or Edge for best compatibility</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right: Transcript + history -->
+    <div class="col-lg-7">
+      <!-- Transcript -->
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="h6 fw-700 mb-0">Live Transcript</h2>
+        <button id="clearTranscriptBtn" class="btn btn-sm btn-outline-secondary" type="button">
+          <i class="bi bi-eraser me-1"></i>Clear
+        </button>
+      </div>
+      <div class="transcript-box mb-4" id="transcriptBox" aria-live="polite" aria-label="Speech transcript">
+        <span style="color:var(--mt-text-muted);font-style:italic;">Your words will appear here as you speak…</span>
+      </div>
+
+      <!-- History -->
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="h6 fw-700 mb-0">Session History</h2>
+        <span class="demo-badge"><i class="bi bi-flask me-1"></i>This session only</span>
+      </div>
+      <ul class="list-group list-group-flush border-mt rounded-mt" id="voiceHistory" style="background:white;">
+        <!-- Injected by voice-assistant.js -->
+      </ul>
+
+      <!-- Emergency note -->
+      <div class="disclaimer-banner mt-4">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <div style="font-size:.82rem;">
+          <strong>Important:</strong> If you describe emergency symptoms (chest pain, stroke, severe breathing difficulty),
+          please call <strong>112</strong> immediately. MediTalk cannot provide emergency assistance.
+        </div>
+      </div>
+
+      <!-- Link to chat -->
+      <div class="mt-4 text-center">
+        <p class="text-muted-mt mb-2" style="font-size:.88rem;">Prefer to type? Use the AI Chat instead.</p>
+        <a href="chat.html" class="btn btn-mt-outline btn-sm">
+          <i class="bi bi-chat-left-text me-1"></i> Switch to Text Chat
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /row -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/data-store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/voice-assistant.js"></script>
+</body>
+</html>

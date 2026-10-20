@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — MediTalk</title>
+  <meta name="description" content="Sign in to your MediTalk account to access your health history and clinical records." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body style="background:linear-gradient(145deg, #f0f6ff 0%, #e6f7f6 100%);min-height:100vh;">
+
+<!-- ═══════════════════ NAVBAR (minimal) ═════════════════ -->
+<nav class="navbar navbar-meditalk" aria-label="Site navigation">
+  <div class="container">
+    <a class="navbar-brand-mt" href="index.html" aria-label="MediTalk Home">
+      <span class="brand-mark" aria-hidden="true">MT</span>
+      <span>MediTalk</span>
+    </a>
+    <a href="register.html" class="btn btn-mt-outline btn-sm">Create Account</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ AUTH FORM ════════════════════════ -->
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+
+      <div class="auth-card">
+
+        <!-- Logo -->
+        <div class="auth-logo">
+          <div class="brand-mark" style="width:48px;height:48px;font-size:.88rem;">MT</div>
+          <span style="font-size:1.3rem;font-weight:800;color:var(--mt-text);">MediTalk</span>
+        </div>
+
+        <h1 class="h5 fw-800 text-center mb-1">Welcome back</h1>
+        <p class="text-center text-muted-mt mb-4" style="font-size:.88rem;">Sign in to continue to your health history</p>
+
+        <!-- Demo notice -->
+        <div class="demo-badge w-100 justify-content-center mb-4" style="display:flex;">
+          <i class="bi bi-flask"></i> Demo mode — no real authentication
+        </div>
+
+        <form id="loginForm" novalidate>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label class="form-label-mt" for="loginEmail">Email address</label>
+            <input type="email" id="loginEmail" class="input-mt"
+                   placeholder="you@example.com" autocomplete="email" required />
+            <div class="form-error" id="loginEmailError"></div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label-mt mb-0" for="loginPassword">Password</label>
+              <a href="#" style="font-size:.8rem;color:var(--mt-blue);">Forgot password?</a>
+            </div>
+            <div class="input-group-mt">
+              <input type="password" id="loginPassword" class="input-mt"
+                     placeholder="Enter your password" autocomplete="current-password" required />
+              <button class="input-eye-btn" type="button"
+                      data-target="loginPassword" aria-label="Show password">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+            <div class="form-error" id="loginPasswordError"></div>
+          </div>
+
+          <!-- Remember me -->
+          <div class="d-flex align-items-center gap-2 mb-4">
+            <input type="checkbox" id="rememberMe" class="form-check-input m-0" />
+            <label for="rememberMe" style="font-size:.875rem;color:var(--mt-text-muted);">Remember this device</label>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="loginSubmitBtn" class="btn btn-mt-primary w-100 mb-3" style="padding:.75rem;">
+            Sign In <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+
+          <p class="text-center" style="font-size:.875rem;color:var(--mt-text-muted);">
+            Don't have an account?
+            <a href="register.html" style="color:var(--mt-blue);font-weight:600;">Register here</a>
+          </p>
+
+        </form>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-banner mt-4" style="font-size:.8rem;">
+        <i class="bi bi-shield-lock-fill" style="color:var(--mt-warning);"></i>
+        <span>This is a frontend demonstration. No data is submitted or stored. Do not enter real credentials.</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/data-store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/forms.js"></script>
+</body>
+</html>

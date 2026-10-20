@@ -1,0 +1,121 @@
+/* =========================================================
+   MediTalk — Responsive CSS
+   Media queries and mobile-first adjustments
+   ========================================================= */
+
+/* ---------- Large Desktops (≥ 1200px) ---------- */
+@media (min-width: 1200px) {
+  .hero-section { padding: 6rem 0 5rem; }
+  .hero-heading { font-size: 3.6rem; }
+}
+
+/* ---------- Tablets (≤ 991px) ---------- */
+@media (max-width: 991px) {
+  .hero-section { padding: 3.5rem 0 3rem; }
+  .hero-heading { font-size: 2.4rem; }
+  .hero-subtext { font-size: 1rem; }
+
+  /* Sidebar becomes top nav on tablet */
+  .sidebar-mt {
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--mt-border);
+    padding: .75rem 1rem;
+  }
+  .sidebar-link { display: inline-flex; margin-right: 4px; margin-bottom: 0; }
+
+  /* Chat height adjustment */
+  .chat-container { height: calc(100vh - 280px); }
+
+  /* Auth card narrower */
+  .auth-card { padding: 2rem; }
+
+  /* Drop zone padding */
+  .drop-zone { padding: 2rem 1.5rem; }
+}
+
+/* ---------- Mobile (≤ 767px) ---------- */
+@media (max-width: 767px) {
+  /* Navbar */
+  .navbar-meditalk .navbar-collapse {
+    background: white;
+    border-top: 1px solid var(--mt-border);
+    padding: 1rem;
+    margin-top: .75rem;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.06);
+  }
+  .nav-link-mt { padding: .6rem 1rem !important; }
+
+  /* Hero */
+  .hero-section { padding: 3rem 0 2.5rem; text-align: center; }
+  .hero-heading { font-size: 1.95rem; }
+  .hero-subtext { margin: 0 auto 1.5rem; font-size: .95rem; }
+  .hero-buttons { justify-content: center; }
+  .hero-img-wrap { margin-top: 2rem; }
+
+  /* Section titles */
+  .section-title { font-size: 1.6rem; }
+  .section-subtitle { font-size: .92rem; }
+
+  /* Stat cards in 2 columns */
+  .stat-row .col-6 { flex: 0 0 50%; max-width: 50%; }
+
+  /* Chat */
+  .chat-container { height: calc(100vh - 240px); border-radius: 10px; }
+  .msg-bubble { max-width: 90%; font-size: .88rem; }
+  .chat-input-bar { padding: .65rem; gap: .5rem; }
+
+  /* Voice assistant mic button */
+  .mic-btn { width: 85px; height: 85px; font-size: 1.9rem; }
+
+  /* Auth card */
+  .auth-card { padding: 1.5rem; }
+
+  /* Drop zone */
+  .drop-zone { padding: 1.75rem 1rem; }
+  .drop-zone-icon { font-size: 2.25rem; }
+
+  /* Steps: center */
+  .step-number { margin: 0 auto; }
+  .step-connector { margin: 8px auto; }
+
+  /* Footer */
+  .footer-mt { text-align: center; }
+
+  /* Sidebar on mobile: horizontal scroll */
+  .sidebar-mt {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: .5rem .75rem;
+  }
+  .sidebar-link { display: inline-flex; margin-right: 4px; }
+}
+
+/* ---------- Very Small Mobile (≤ 400px) ---------- */
+@media (max-width: 400px) {
+  .hero-heading { font-size: 1.65rem; }
+  .brand-mark { width: 34px; height: 34px; font-size: .7rem; }
+  .navbar-brand-mt { font-size: 1.1rem; }
+  .auth-card { padding: 1.25rem; }
+  .btn-mt-primary, .btn-mt-teal, .btn-mt-outline { padding: .55rem 1.1rem; font-size: .88rem; }
+  .mic-btn { width: 75px; height: 75px; font-size: 1.65rem; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .navbar-meditalk, .footer-mt, .sidebar-mt, .chat-input-bar { display: none; }
+  .chat-container { height: auto; overflow: visible; }
+}
+
+/* ---------- Reduce Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mic-btn.listening { animation: none; }
+  .mic-ripple { display: none !important; }
+}

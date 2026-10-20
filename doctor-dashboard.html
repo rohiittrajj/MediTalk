@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="nav.doctor">Doctor Review — MediTalk</title>
+  <meta name="description" content="Doctor review portal for MediTalk pre-consultation summaries, triage queue, and clinical notes." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="bg-page">
+
+<!-- ═══════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar navbar-expand-lg navbar-meditalk sticky-top" aria-label="Main navigation">
+  <div class="container-fluid px-lg-4">
+    <a class="navbar-brand-mt" href="index.html" aria-label="MediTalk Home">
+      <span class="brand-mark" aria-hidden="true">MT</span>
+      <span data-i18n="nav.brand">MediTalk</span>
+      <span class="badge bg-primary-subtle text-primary border ms-2" style="font-size:.72rem;">Doctor Review</span>
+    </a>
+    <button class="navbar-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4" style="color:var(--mt-text);"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link-mt" href="index.html" data-i18n="nav.home">Home</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="register.html" data-i18n="nav.register">Register</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="chat.html" data-i18n="nav.case_taking">Health Assistant</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="image-analysis.html" data-i18n="nav.scan">Documents</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="summary.html" data-i18n="nav.summary">Summary</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="ayush.html">AYUSH (Optional)</a></li>
+        <li class="nav-item"><a class="nav-link-mt active" href="doctor-dashboard.html" data-i18n="nav.doctor">Doctor Review</a></li>
+      </ul>
+      <div id="langSelectorContainer" class="d-flex align-items-center ms-lg-3 my-2 my-lg-0"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ DOCTOR PORTAL LAYOUT ═══════════════════ -->
+<div class="container-fluid px-lg-4 py-3">
+
+  <!-- Doctor Header Banner -->
+  <div class="card-mt p-3 mb-3 bg-white border">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <div class="feature-icon feature-icon-blue" style="width:46px;height:46px;font-size:1.3rem;margin:0;">
+          <i class="bi bi-person-badge"></i>
+        </div>
+        <div>
+          <h1 class="h6 fw-800 mb-0">Dr. Sanjay K. Mehta, MBBS, MD</h1>
+          <p class="text-muted-mt mb-0" style="font-size:.82rem;">
+            MediTalk Clinical Consultation & Review Portal
+          </p>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <span class="badge bg-light text-dark border px-2 py-1" style="font-size:.82rem;">
+          <i class="bi bi-people-fill text-primary me-1"></i> Patient Queue: <strong id="queueCount">3</strong>
+        </span>
+        <a href="register.html" class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-plus-circle me-1"></i> Start New Assessment
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+
+    <!-- ── Left: Patient List / Triage Queue ── -->
+    <div class="col-lg-4 col-xl-3">
+      <div class="card-mt p-3 bg-white border h-100">
+        
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h2 class="h6 fw-800 mb-0">Patient Queue</h2>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="btn-group btn-group-sm w-100 mb-3" role="group">
+          <button type="button" class="btn btn-outline-secondary active btn-filter" data-filter="all">All</button>
+          <button type="button" class="btn btn-outline-danger btn-filter" data-filter="redflag">Red Flags</button>
+          <button type="button" class="btn btn-outline-warning btn-filter" data-filter="pending">Pending</button>
+          <button type="button" class="btn btn-outline-success btn-filter" data-filter="approved">Approved</button>
+        </div>
+
+        <!-- Patients list container -->
+        <div id="patientQueueList" class="d-flex flex-column gap-2" style="max-height:calc(100vh - 280px);overflow-y:auto;">
+          <!-- Dynamically populated -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Right: Patient Detail & Clinical Review Panel ── -->
+    <div class="col-lg-8 col-xl-9">
+      <div class="card-mt p-4 bg-white border" id="doctorReviewPanel">
+
+        <!-- Active Patient Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-start border-bottom pb-3 mb-3">
+          <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h2 class="h5 fw-800 mb-0" id="dpFullName">Rajesh Kumar Verma</h2>
+              <span id="dpAgeGender" class="text-muted-mt" style="font-size:.88rem;">46 Yrs / Male</span>
+              <span id="dpPriorityBadge" class="badge bg-danger">High Priority (Red Flag)</span>
+            </div>
+            <div class="d-flex flex-wrap gap-2 text-muted-mt" style="font-size:.8rem;">
+              <span><i class="bi bi-person-badge me-1"></i>ID: <strong id="dpId">MK-2026-0842</strong></span>
+              <span>·</span>
+              <span><i class="bi bi-shield-check text-teal me-1"></i>ABHA: <span id="dpAbha">91-4821-7392-5014</span></span>
+              <span>·</span>
+              <span><i class="bi bi-telephone me-1"></i><span id="dpPhone">+91 98765 43210</span></span>
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-2 mt-md-0">
+            <a href="summary.html" class="btn btn-sm btn-outline-primary">
+              <i class="bi bi-file-text me-1"></i> Full Clinical Sheet
+            </a>
+            <a href="summary.html" class="btn btn-sm btn-mt-primary">
+              <i class="bi bi-printer me-1"></i> Print / Export
+            </a>
+          </div>
+        </div>
+
+        <!-- Red Flag Alert Box (if present) -->
+        <div id="dpRedFlagAlert"></div>
+
+        <!-- Missing Information Alert (if present) -->
+        <div id="dpMissingInfo"></div>
+
+        <!-- Quick Summary 3-Box Grid -->
+        <div class="row g-3 mb-3">
+
+          <!-- Chief Complaint & Symptoms -->
+          <div class="col-md-6">
+            <div class="p-3 border rounded bg-light h-100">
+              <span class="text-muted-mt d-block fw-700" style="font-size:.75rem;">CHIEF COMPLAINT & SYMPTOMS</span>
+              <p class="fw-700 mb-1" id="dpChiefComplaint" style="font-size:.95rem;color:var(--mt-text);">--</p>
+              <div class="d-flex gap-2 mb-2" style="font-size:.82rem;">
+                <span><strong>Duration:</strong> <span id="dpDuration">--</span></span>
+                <span>·</span>
+                <span><strong>Severity:</strong> <span id="dpSeverity">--</span></span>
+              </div>
+              <div id="dpSymptomsTags" class="d-flex flex-wrap gap-1">
+                <!-- symptom tags -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Medical History, Medications, Allergies -->
+          <div class="col-md-6">
+            <div class="p-3 border rounded bg-light h-100">
+              <span class="text-muted-mt d-block fw-700" style="font-size:.75rem;">HISTORY & ALLERGIES</span>
+              <div class="mb-1" style="font-size:.85rem;">
+                <strong>Known History:</strong> <span id="dpHistory">--</span>
+              </div>
+              <div class="mb-1" style="font-size:.85rem;">
+                <strong>Current Meds:</strong> <span id="dpMeds">--</span>
+              </div>
+              <div class="p-2 rounded bg-warning-subtle border border-warning" style="font-size:.82rem;color:#78350f;">
+                <strong><i class="bi bi-exclamation-triangle-fill text-warning me-1"></i>Allergies:</strong>
+                <span id="dpAllergies" class="fw-700">--</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Document History & OCR Records -->
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="fw-800 mb-0" style="font-size:.88rem;">Uploaded Documents & OCR Findings</h6>
+            <a href="image-analysis.html" class="btn btn-link btn-sm p-0 text-decoration-none">Upload Another Document</a>
+          </div>
+          <div id="dpDocumentsList" class="row g-2">
+            <!-- doc cards -->
+          </div>
+        </div>
+
+        <!-- AYUSH Assessment Preview (if present) -->
+        <div class="mb-3" id="dpAyushWrap">
+          <div class="p-3 border rounded bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <strong style="font-size:.85rem;color:var(--mt-teal-dark);">
+                <i class="bi bi-flower1 me-1 text-success"></i> AYUSH Dashavidha Pariksha Findings
+              </strong>
+              <a href="ayush.html" class="btn btn-link btn-sm p-0" style="font-size:.75rem;">Edit AYUSH</a>
+            </div>
+            <div class="row g-2" id="dpAyushGrid" style="font-size:.82rem;">
+              <!-- AYUSH items -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor Review & Order Section -->
+        <div class="card-mt p-3 bg-light border">
+          <div class="row g-3">
+            <div class="col-md-5">
+              <label for="dpReviewStatusSelect" class="form-label-mt" style="font-size:.82rem;">Update Review Status</label>
+              <select id="dpReviewStatusSelect" class="form-select form-select-sm">
+                <option value="Pending Review">⏳ Pending Review</option>
+                <option value="Under Review">🔍 Under Clinical Review</option>
+                <option value="Reviewed & Approved">✅ Clinician Approved & Signed Off</option>
+              </select>
+            </div>
+            <div class="col-md-7">
+              <label for="dpProvisionalImpression" class="form-label-mt" style="font-size:.82rem;">Provisional Impression</label>
+              <input type="text" id="dpProvisionalImpression" class="form-control form-control-sm"
+                     placeholder="e.g. Suspected Angina / Acute Coronary Syndrome" />
+            </div>
+            <div class="col-12">
+              <label for="dpDoctorNotes" class="form-label-mt" style="font-size:.82rem;">
+                Physician Consultation Notes & Treatment Plan
+              </label>
+              <textarea id="dpDoctorNotes" class="form-control" rows="3"
+                        placeholder="Enter clinical examination findings, differential diagnoses, recommended diagnostic tests, or prescriptions..."></textarea>
+            </div>
+            <div class="col-12 d-flex justify-content-between align-items-center pt-2">
+              <div class="text-muted-mt" style="font-size:.78rem;">
+                <i class="bi bi-shield-check text-success me-1"></i> Timestamp and doctor electronic signature appended upon saving.
+              </div>
+              <button type="button" id="dpSaveReviewBtn" class="btn btn-mt-primary">
+                <i class="bi bi-check2-all me-1"></i> Save Clinical Review
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/data-store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/doctor.js"></script>
+</body>
+</html>

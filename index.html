@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediTalk — Patient History Intelligence Platform</title>
+  <meta name="description" content="MediTalk helps patients share their medical history through voice and touch interactions, organises information from medical documents, and prepares structured history for clinician review." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- MediTalk CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar navbar-expand-lg navbar-meditalk sticky-top" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a class="navbar-brand-mt" href="index.html" aria-label="MediTalk Home">
+      <span class="brand-mark" aria-hidden="true">MT</span>
+      <span>MediTalk</span>
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4" style="color:var(--mt-text);"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link-mt active" href="index.html" data-i18n="nav.home">Home</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="register.html" data-i18n="nav.register">Register</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="chat.html" data-i18n="nav.case_taking">Health Assistant</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="image-analysis.html" data-i18n="nav.scan">Documents</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="summary.html" data-i18n="nav.summary">Summary</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="ayush.html">AYUSH (Optional)</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="doctor-dashboard.html" data-i18n="nav.doctor">Doctor Review</a></li>
+      </ul>
+      <div id="langSelectorContainer" class="d-flex align-items-center ms-lg-3 my-2 my-lg-0"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═════════════════════════════ -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <div class="col-lg-6">
+        <span class="hero-badge"><i class="bi bi-shield-plus"></i> Healthcare AI Platform</span>
+        <h1 class="hero-heading">A better conversation.<br><span>A clearer clinical history.</span></h1>
+        <p class="hero-subtext">
+          MediTalk helps patients share their medical history through accessible voice and touch interactions,
+          organises information from medical documents, and prepares a structured, source-aware history for clinician review.
+        </p>
+
+        <div class="disclaimer-banner mb-4">
+          <i class="bi bi-info-circle-fill"></i>
+          <span>MediTalk supports clinical preparation. It does not replace qualified healthcare professionals or provide autonomous diagnoses.</span>
+        </div>
+
+        <div class="d-flex flex-wrap gap-3 hero-buttons">
+          <a href="register.html" class="btn btn-mt-primary">
+            Get Started <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+          <a href="dashboard.html" class="btn btn-mt-outline">
+            <i class="bi bi-grid me-1"></i> View Dashboard
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="hero-img-wrap">
+          <!-- Illustrated hero card -->
+          <div style="background:linear-gradient(145deg,#f0f6ff,#e6f7f6);padding:2.5rem;border-radius:18px;border:1px solid var(--mt-border);">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="brand-mark" style="width:48px;height:48px;font-size:.9rem;">MT</div>
+              <div>
+                <div class="fw-700" style="font-size:1.05rem;">Patient Intake Session</div>
+                <div class="text-muted" style="font-size:.82rem;">Guided history collection</div>
+              </div>
+              <span class="pill pill-green ms-auto"><i class="bi bi-dot" style="font-size:1.2rem;"></i>Active</span>
+            </div>
+            <!-- Fake chat preview -->
+            <div style="display:flex;flex-direction:column;gap:.7rem;">
+              <div style="background:white;border:1px solid var(--mt-border);border-radius:14px 14px 14px 4px;padding:.7rem 1rem;font-size:.88rem;box-shadow:var(--mt-shadow);max-width:80%;">
+                Hello! What brings you in today?
+              </div>
+              <div style="background:linear-gradient(135deg,var(--mt-blue),var(--mt-blue-dark));color:white;border-radius:14px 14px 4px 14px;padding:.7rem 1rem;font-size:.88rem;max-width:75%;align-self:flex-end;">
+                I've had a headache for 3 days.
+              </div>
+              <div style="background:white;border:1px solid var(--mt-border);border-radius:14px 14px 14px 4px;padding:.7rem 1rem;font-size:.88rem;box-shadow:var(--mt-shadow);max-width:85%;">
+                I'll note that. Is it throbbing or a dull ache?
+              </div>
+            </div>
+            <!-- Status bar -->
+            <div class="d-flex align-items-center justify-content-between mt-4 pt-3" style="border-top:1px solid var(--mt-border);">
+              <span style="font-size:.78rem;color:var(--mt-text-muted);">3 of 8 sections complete</span>
+              <div style="flex:1;max-width:140px;height:6px;background:var(--mt-border);border-radius:99px;margin:0 1rem;overflow:hidden;">
+                <div style="width:38%;height:100%;background:linear-gradient(90deg,var(--mt-blue),var(--mt-teal));border-radius:99px;"></div>
+              </div>
+              <span class="pill pill-blue" style="font-size:.72rem;">38%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FEATURES ═════════════════════════ -->
+<section class="py-5 bg-surface" id="features">
+  <div class="container py-3">
+    <div class="text-center mb-5">
+      <p class="section-eyebrow">Product Direction</p>
+      <h2 class="section-title">One connected patient‑to‑clinician workflow</h2>
+      <p class="section-subtitle mx-auto mt-2">Designed to be calm, trustworthy, and accessible — for patients and clinicians alike.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card-mt p-4 h-100">
+          <div class="feature-icon feature-icon-blue"><i class="bi bi-chat-heart"></i></div>
+          <h5 class="fw-700 mb-2">Guided Patient Interview</h5>
+          <p class="text-muted-mt" style="font-size:.9rem;line-height:1.65;">
+            A patient-friendly flow for sharing symptoms and medical history through touch, text, and supported speech in English and Hindi.
+          </p>
+          <a href="chat.html" class="btn btn-mt-outline btn-sm mt-auto">Try AI Chat <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card-mt p-4 h-100">
+          <div class="feature-icon feature-icon-teal"><i class="bi bi-file-earmark-medical"></i></div>
+          <h5 class="fw-700 mb-2">Document Intelligence</h5>
+          <p class="text-muted-mt" style="font-size:.9rem;line-height:1.65;">
+            Upload prescriptions, lab reports, and discharge summaries. Extracted facts are clearly labelled with source and confidence for clinician review.
+          </p>
+          <a href="image-analysis.html" class="btn btn-mt-outline btn-sm mt-auto">Upload Document <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card-mt p-4 h-100">
+          <div class="feature-icon feature-icon-green"><i class="bi bi-person-check"></i></div>
+          <h5 class="fw-700 mb-2">Clinician-Reviewed Summary</h5>
+          <p class="text-muted-mt" style="font-size:.9rem;line-height:1.65;">
+            A clear draft that preserves source provenance and uncertainty. Authorized clinicians review, edit, and accept before the record is finalised.
+          </p>
+          <span class="pill pill-amber" style="font-size:.75rem;">Planned capability</span>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card-mt p-4 h-100">
+          <div class="feature-icon feature-icon-amber"><i class="bi bi-mic"></i></div>
+          <h5 class="fw-700 mb-2">Voice Interaction</h5>
+          <p class="text-muted-mt" style="font-size:.9rem;line-height:1.65;">
+            Speak your symptoms using the browser-based voice assistant. Supports English and Hindi with graceful fallback to text if speech is unavailable.
+          </p>
+          <a href="voice-assistant.html" class="btn btn-mt-outline btn-sm mt-auto">Open Voice Assistant <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card-mt p-4 h-100">
+          <div class="feature-icon feature-icon-blue"><i class="bi bi-clock-history"></i></div>
+          <h5 class="fw-700 mb-2">Medical Timeline</h5>
+          <p class="text-muted-mt" style="font-size:.9rem;line-height:1.65;">
+            A chronological view of encounters, medications, and investigations. Conflicting values are preserved for review — nothing is silently inferred.
+          </p>
+          <span class="pill pill-amber" style="font-size:.75rem;">Planned capability</span>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card-mt p-4 h-100">
+          <div class="feature-icon feature-icon-teal"><i class="bi bi-shield-lock"></i></div>
+          <h5 class="fw-700 mb-2">Privacy & Consent</h5>
+          <p class="text-muted-mt" style="font-size:.9rem;line-height:1.65;">
+            Purpose-specific consent, data minimisation, audit logging, and strict access control. Patient data never leaves without explicit authorization.
+          </p>
+          <span class="pill pill-amber" style="font-size:.75rem;">Planned capability</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ HOW IT WORKS ═════════════════════ -->
+<section class="py-5" id="how-it-works">
+  <div class="container py-3">
+    <div class="row g-5 align-items-center">
+
+      <div class="col-lg-5">
+        <p class="section-eyebrow">Workflow</p>
+        <h2 class="section-title mb-3">How MediTalk works</h2>
+        <p class="section-subtitle">A structured, end-to-end process that keeps the patient in control and the clinician well-informed.</p>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="d-flex flex-column gap-0">
+
+          <!-- Step 1 -->
+          <div class="d-flex gap-4 align-items-start">
+            <div class="d-flex flex-column align-items-center">
+              <div class="step-number">1</div>
+              <div class="step-connector"></div>
+            </div>
+            <div class="pb-3">
+              <h6 class="fw-700 mb-1">Identify & Consent</h6>
+              <p class="text-muted-mt mb-0" style="font-size:.9rem;">Patient identity is confirmed, data use is explained clearly, and explicit consent is obtained for each purpose.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="d-flex gap-4 align-items-start">
+            <div class="d-flex flex-column align-items-center">
+              <div class="step-number">2</div>
+              <div class="step-connector"></div>
+            </div>
+            <div class="pb-3">
+              <h6 class="fw-700 mb-1">Share Your History</h6>
+              <p class="text-muted-mt mb-0" style="font-size:.9rem;">Answer adaptive questions by voice or text. Upload existing medical documents. Unknown and declined answers are recorded — not inferred.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="d-flex gap-4 align-items-start">
+            <div class="d-flex flex-column align-items-center">
+              <div class="step-number">3</div>
+              <div class="step-connector"></div>
+            </div>
+            <div class="pb-3">
+              <h6 class="fw-700 mb-1">Draft Is Generated</h6>
+              <p class="text-muted-mt mb-0" style="font-size:.9rem;">A structured summary is created with source labels (patient-reported, document-extracted, or system-generated) and uncertainty flags.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="d-flex gap-4 align-items-start">
+            <div class="d-flex flex-column align-items-center">
+              <div class="step-number">4</div>
+            </div>
+            <div class="pb-3">
+              <h6 class="fw-700 mb-1">Clinician Reviews & Accepts</h6>
+              <p class="text-muted-mt mb-0" style="font-size:.9rem;">An authorized clinician reviews, edits, and accepts or rejects the draft. The record is finalised only after clinical approval.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ABOUT ════════════════════════════ -->
+<section class="py-5 bg-surface" id="about">
+  <div class="container py-3">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <p class="section-eyebrow">About MediTalk</p>
+        <h2 class="section-title mb-3">Built for clarity, not complexity</h2>
+        <p style="color:var(--mt-text-muted);line-height:1.75;font-size:.975rem;">
+          MediTalk is a patient-history intelligence and clinical preparation platform. It helps bridge the gap
+          between what patients want to communicate and what clinicians need to know — through accessible, guided interactions.
+        </p>
+        <p style="color:var(--mt-text-muted);line-height:1.75;font-size:.975rem;">
+          The platform supports English and Hindi, works on kiosks, tablets, and desktops, and provides touch and voice alternatives
+          so that no patient is excluded due to literacy or technology barriers.
+        </p>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <span class="pill pill-blue"><i class="bi bi-translate"></i> English & Hindi</span>
+          <span class="pill pill-teal"><i class="bi bi-phone"></i> Mobile Friendly</span>
+          <span class="pill pill-green"><i class="bi bi-universal-access"></i> Accessible</span>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="stat-card text-center">
+              <div class="stat-value">3+</div>
+              <div class="stat-label">Core Features</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card text-center">
+              <div class="stat-value">2</div>
+              <div class="stat-label">Languages Supported</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card text-center">
+              <div class="stat-value">100%</div>
+              <div class="stat-label">Clinician Review</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card text-center">
+              <div class="stat-value">0</div>
+              <div class="stat-label">Autonomous Diagnoses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ DISCLAIMER ═══════════════════════ -->
+<section class="py-4">
+  <div class="container">
+    <div class="disclaimer-banner">
+      <i class="bi bi-exclamation-triangle-fill" style="font-size:1.1rem;"></i>
+      <div>
+        <strong>Medical Disclaimer:</strong> MediTalk is a clinical preparation tool. It does not provide medical diagnoses, prescriptions,
+        or treatment recommendations. All generated summaries remain drafts until reviewed and accepted by an authorized, qualified clinician.
+        In case of a medical emergency, call <strong>112</strong> immediately.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer-mt">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <div class="brand-mark">MT</div>
+          <span class="footer-logo-text">MediTalk</span>
+        </div>
+        <p style="font-size:.88rem;line-height:1.65;max-width:300px;">
+          A patient-history intelligence and clinical preparation platform. Built for clarity, not complexity.
+        </p>
+      </div>
+      <div class="col-sm-6 col-lg-2 offset-lg-2">
+        <h6 class="text-white fw-700 mb-3" style="font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;">Platform</h6>
+        <ul class="list-unstyled" style="font-size:.88rem;">
+          <li class="mb-2"><a href="index.html">Home</a></li>
+          <li class="mb-2"><a href="dashboard.html">Dashboard</a></li>
+          <li class="mb-2"><a href="register.html">Register</a></li>
+          <li class="mb-2"><a href="chat.html">Health Assistant</a></li>
+          <li class="mb-2"><a href="image-analysis.html">Documents</a></li>
+          <li class="mb-2"><a href="summary.html">Medical Summary</a></li>
+          <li class="mb-2"><a href="doctor-dashboard.html">Doctor Review</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <h6 class="text-white fw-700 mb-3" style="font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;">Account</h6>
+        <ul class="list-unstyled" style="font-size:.88rem;">
+          <li class="mb-2"><a href="login.html">Sign In</a></li>
+          <li class="mb-2"><a href="register.html">Register</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2">
+        <h6 class="text-white fw-700 mb-3" style="font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;">Important</h6>
+        <ul class="list-unstyled" style="font-size:.88rem;">
+          <li class="mb-2"><a href="#about">About</a></li>
+          <li class="mb-2"><a href="#how-it-works">How It Works</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="footer-divider my-4" />
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2" style="font-size:.82rem;">
+      <span>© 2025 MediTalk. Foundation stage — not for clinical use.</span>
+      <span>MediTalk does not replace professional medical judgment.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/data-store.js"></script>
+<script src="js/i18n.js"></script>
+</body>
+</html>

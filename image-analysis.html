@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="scan.title">Medical Documents — MediTalk</title>
+  <meta name="description" content="Upload prescriptions and lab reports for doctor review." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="bg-page">
+
+<!-- ═══════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar navbar-expand-lg navbar-meditalk sticky-top" aria-label="Main navigation">
+  <div class="container">
+    <a class="navbar-brand-mt" href="index.html" aria-label="MediTalk Home">
+      <span class="brand-mark" aria-hidden="true">MT</span>
+      <span data-i18n="nav.brand">MediTalk</span>
+    </a>
+    <button class="navbar-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4" style="color:var(--mt-text);"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link-mt" href="index.html" data-i18n="nav.home">Home</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="register.html">New Assessment</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="chat.html">Health Assistant</a></li>
+        <li class="nav-item"><a class="nav-link-mt active" href="image-analysis.html">Documents</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="summary.html" data-i18n="nav.summary">Medical Summary</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="doctor-dashboard.html" data-i18n="nav.doctor">Doctor Review</a></li>
+      </ul>
+      <div id="langSelectorContainer" class="d-flex align-items-center ms-lg-3 my-2 my-lg-0"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ SIMPLE STEPS NAV ═════════════════ -->
+<div class="container pt-3">
+  <div class="steps-nav">
+    <a href="register.html" class="step-item completed"><i class="bi bi-check2"></i> 1. Patient Details</a>
+    <a href="chat.html" class="step-item completed"><i class="bi bi-check2"></i> 2. Health Assistant</a>
+    <a href="image-analysis.html" class="step-item active"><i class="bi bi-file-earmark-medical"></i> 3. Documents</a>
+    <a href="summary.html" class="step-item"><i class="bi bi-printer"></i> 4. Medical Summary</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ MAIN CONTENT ═════════════════════ -->
+<main class="container pb-5" id="main-content">
+
+  <!-- Page Header -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+    <div>
+      <h1 class="h4 fw-800 mb-1" data-i18n="scan.title">Medical Documents</h1>
+      <p class="text-muted-mt mb-0" style="font-size:.9rem;">
+        Attach prescriptions, lab test reports, or discharge summaries for your doctor to review.
+      </p>
+    </div>
+    <span class="badge bg-light text-dark border px-2 py-1" style="font-size:.8rem;">
+      Patient: <strong id="scanPatNameDisplay">Rajesh Kumar Verma</strong>
+    </span>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- ── Left: File Upload & Preview ── -->
+    <div class="col-lg-5">
+      <div class="clean-card bg-white h-100">
+
+        <h2 class="h6 fw-800 text-primary border-bottom pb-2 mb-3">
+          <i class="bi bi-cloud-arrow-up me-1"></i> Upload File
+        </h2>
+
+        <!-- Document Type Selector -->
+        <div class="mb-3">
+          <label class="form-label-mt" for="docCategorySelect">Document Type</label>
+          <select id="docCategorySelect" class="form-select form-select-sm">
+            <option value="Prescription">Doctor's Prescription (Rx)</option>
+            <option value="Laboratory Report">Blood / Laboratory Report</option>
+            <option value="Discharge Summary">Hospital Discharge Summary</option>
+          </select>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div class="drop-zone p-4 text-center border rounded bg-light" id="dropZone" role="button" tabindex="0" style="border: 2px dashed #cbd5e1 !important;cursor:pointer;">
+          <i class="bi bi-cloud-arrow-up text-primary fs-1 d-block mb-2"></i>
+          <strong class="d-block mb-1" style="font-size:.95rem;">Drag & drop document here</strong>
+          <span class="text-muted-mt d-block mb-3" style="font-size:.8rem;">or click to browse from device (JPG, PNG, PDF up to 10MB)</span>
+          <button class="btn btn-outline-primary btn-sm" id="browseBtn" type="button">
+            <i class="bi bi-folder2-open me-1"></i> Choose File
+          </button>
+          <input type="file" id="fileInput" class="d-none" accept="image/jpeg,image/png,image/webp,application/pdf" />
+        </div>
+
+        <!-- Quick Sample Document Loaders -->
+        <div class="mt-3 text-center">
+          <span class="text-muted-mt d-block mb-1" style="font-size:.75rem;">OR FILL WITH A SAMPLE DOCUMENT FOR TESTING</span>
+          <div class="d-flex justify-content-center gap-2">
+            <button type="button" id="loadSampleRxBtn" class="btn btn-sm btn-outline-secondary" style="font-size:.78rem;">
+              <i class="bi bi-file-earmark-medical me-1"></i> Sample Prescription
+            </button>
+            <button type="button" id="loadSampleLabBtn" class="btn btn-sm btn-outline-secondary" style="font-size:.78rem;">
+              <i class="bi bi-file-earmark-bar-graph me-1"></i> Sample Lab CBC
+            </button>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="uploadError" class="alert alert-danger py-2 mt-3" style="display:none;font-size:.85rem;">
+          <span id="uploadErrorText"></span>
+        </div>
+
+        <!-- Preview Card -->
+        <div id="previewSection" style="display:none;" class="mt-3 p-3 border rounded bg-light">
+          <div class="d-flex align-items-center gap-3">
+            <img id="previewImg" src="" alt="Preview" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #cbd5e1;" />
+            <div id="pdfIcon" style="display:none;width:60px;height:60px;background:#e8f0fb;border-radius:6px;align-items:center;justify-content:center;flex-direction:column;color:var(--mt-blue);">
+              <i class="bi bi-file-pdf fs-3"></i>
+            </div>
+            <div class="flex-grow-1 text-truncate">
+              <strong id="previewFileName" class="d-block text-truncate" style="font-size:.85rem;">filename.pdf</strong>
+              <span id="previewFileSize" class="text-muted-mt" style="font-size:.75rem;">120 KB</span>
+            </div>
+            <button id="removeFileBtn" class="btn btn-sm btn-outline-danger" type="button" title="Remove file">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Right: Document Information & Saved List ── -->
+    <div class="col-lg-7">
+      <div class="clean-card bg-white h-100">
+
+        <h2 class="h6 fw-800 text-primary border-bottom pb-2 mb-3">
+          <i class="bi bi-pencil-square me-1"></i> Document Details
+        </h2>
+
+        <form id="ocrEditForm">
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-7">
+              <label class="form-label-mt" for="ocrDocTitle">Document Name / Title</label>
+              <input type="text" id="ocrDocTitle" class="form-control" value="Previous Doctor Prescription" />
+            </div>
+
+            <div class="col-md-5">
+              <label class="form-label-mt" for="ocrDate">Document Date</label>
+              <input type="date" id="ocrDate" class="form-control" value="2026-09-15" />
+            </div>
+
+            <div class="col-12">
+              <label class="form-label-mt" for="ocrFacility">Doctor or Hospital Name</label>
+              <input type="text" id="ocrFacility" class="form-control" value="City Clinic — Dr. A. K. Sharma" />
+            </div>
+
+            <div class="col-12">
+              <label class="form-label-mt" for="ocrFindings">Findings / Test Results / Diagnosis</label>
+              <textarea id="ocrFindings" class="form-control" rows="2">Blood pressure reading 140/90 mmHg. Regular monitoring advised.</textarea>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label-mt" for="ocrMeds">Medications Mentioned (if any)</label>
+              <input type="text" id="ocrMeds" class="form-control" value="Tab Telmisartan 40mg once daily" />
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top mb-4">
+            <button type="button" id="saveDocToRecordBtn" class="btn btn-outline-primary btn-sm px-3">
+              <i class="bi bi-plus-lg me-1"></i> Save to Patient Record
+            </button>
+            <a href="summary.html" class="btn btn-mt-primary btn-sm px-3">
+              Go to Medical Summary <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+
+        </form>
+
+        <!-- Attached Documents List -->
+        <h3 class="h6 fw-800 border-bottom pb-2 mb-2" style="font-size:.88rem;">
+          <i class="bi bi-paperclip me-1"></i> Saved Documents for this Patient (<span id="attachedDocsCount">2</span>)
+        </h3>
+        <div id="attachedDocsList" class="d-flex flex-column gap-2" style="max-height:220px;overflow-y:auto;">
+          <!-- Injected dynamically -->
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/data-store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/image-analysis.js"></script>
+</body>
+</html>

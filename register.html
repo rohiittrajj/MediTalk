@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="reg.title">Patient Registration — MediTalk</title>
+  <meta name="description" content="Step 1: Enter basic patient details and main health complaint." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="bg-page">
+
+<!-- ═══════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar navbar-expand-lg navbar-meditalk sticky-top" aria-label="Main navigation">
+  <div class="container">
+    <a class="navbar-brand-mt" href="index.html" aria-label="MediTalk Home">
+      <span class="brand-mark" aria-hidden="true">MT</span>
+      <span data-i18n="nav.brand">MediTalk</span>
+    </a>
+    <button class="navbar-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4" style="color:var(--mt-text);"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link-mt" href="index.html" data-i18n="nav.home">Home</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link-mt active" href="register.html">New Assessment</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="chat.html">Health Assistant</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="image-analysis.html">Documents</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="summary.html" data-i18n="nav.summary">Medical Summary</a></li>
+        <li class="nav-item"><a class="nav-link-mt" href="doctor-dashboard.html" data-i18n="nav.doctor">Doctor Review</a></li>
+      </ul>
+      <div id="langSelectorContainer" class="d-flex align-items-center ms-lg-3 my-2 my-lg-0"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ SIMPLE STEPS NAV ═════════════════ -->
+<div class="container pt-3">
+  <div class="steps-nav">
+    <a href="register.html" class="step-item active"><i class="bi bi-person-fill"></i> 1. Patient Details</a>
+    <a href="chat.html" class="step-item"><i class="bi bi-chat-heart"></i> 2. Health Assistant</a>
+    <a href="image-analysis.html" class="step-item"><i class="bi bi-file-earmark-medical"></i> 3. Documents</a>
+    <a href="summary.html" class="step-item"><i class="bi bi-printer"></i> 4. Medical Summary</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ MAIN CONTENT ═════════════════════ -->
+<main class="container pb-5" id="main-content">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <!-- Header -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <div>
+          <h1 class="h4 fw-800 mb-1" data-i18n="reg.title">Patient Registration</h1>
+          <p class="text-muted-mt mb-0" style="font-size:.9rem;">
+            Please enter your basic information and primary health problem.
+          </p>
+        </div>
+        <button type="button" id="loadSamplePatientBtn" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-pencil-square me-1"></i> Fill Sample Details
+        </button>
+      </div>
+
+      <!-- Clean Form Card -->
+      <div class="clean-card bg-white">
+        <form id="patientRegForm" novalidate>
+
+          <!-- 1. Basic Demographics -->
+          <h2 class="h6 fw-800 text-primary border-bottom pb-2 mb-3">
+            <i class="bi bi-person-vcard me-1"></i> Patient Information
+          </h2>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label-mt" for="patName" data-i18n="reg.name">Full Name *</label>
+              <input type="text" id="patName" class="form-control" placeholder="e.g. Rajesh Verma" required />
+              <div class="form-error" id="patNameError">Please enter the patient's full name.</div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+              <label class="form-label-mt" for="patAge" data-i18n="reg.age">Age (Years) *</label>
+              <input type="number" id="patAge" class="form-control" min="1" max="120" placeholder="e.g. 46" required />
+              <div class="form-error" id="patAgeError">Enter age.</div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+              <label class="form-label-mt" for="patGender" data-i18n="reg.gender">Gender *</label>
+              <select id="patGender" class="form-select" required>
+                <option value="">Select...</option>
+                <option value="Male" data-i18n="reg.gender_male">Male</option>
+                <option value="Female" data-i18n="reg.gender_female">Female</option>
+                <option value="Other" data-i18n="reg.gender_other">Other</option>
+              </select>
+              <div class="form-error" id="patGenderError">Select gender.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label-mt" for="patPhone" data-i18n="reg.phone">Mobile Number *</label>
+              <input type="tel" id="patPhone" class="form-control" placeholder="10-digit mobile number" required />
+              <div class="form-error" id="patPhoneError">Enter a valid mobile number.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label-mt" for="patLanguage" data-i18n="reg.lang_pref">Preferred Language</label>
+              <select id="patLanguage" class="form-select">
+                <option value="en">English</option>
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="hi-en">Hinglish (Hindi+English)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 2. Main Health Problem -->
+          <h2 class="h6 fw-800 text-primary border-bottom pb-2 mb-3 mt-4">
+            <i class="bi bi-chat-square-text me-1"></i> Main Health Problem (Chief Complaint)
+          </h2>
+
+          <div class="mb-3">
+            <label class="form-label-mt" for="patChiefComplaint" data-i18n="case.chief_complaint">
+              What is the main problem bringing you to the doctor today? *
+            </label>
+            <textarea id="patChiefComplaint" class="form-control" rows="2"
+                      placeholder="e.g. Chest tightness and persistent dry cough for 3 days" required></textarea>
+            <div class="form-error" id="patComplaintError">Please describe your main health problem.</div>
+          </div>
+
+          <!-- 3. Pre-existing conditions & allergies -->
+          <h2 class="h6 fw-800 text-primary border-bottom pb-2 mb-3 mt-4">
+            <i class="bi bi-heart-pulse me-1"></i> Medical History & Allergies
+          </h2>
+
+          <div class="mb-3">
+            <label class="form-label-mt">Do you have any of these existing conditions?</label>
+            <div class="row g-2">
+              <div class="col-sm-6 col-md-3">
+                <div class="form-check p-2 border rounded bg-light">
+                  <input class="form-check-input ms-0 me-2" type="checkbox" id="histHypertension" value="Hypertension" />
+                  <label class="form-check-label" for="histHypertension">High BP</label>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="form-check p-2 border rounded bg-light">
+                  <input class="form-check-input ms-0 me-2" type="checkbox" id="histDiabetes" value="Type 2 Diabetes" />
+                  <label class="form-check-label" for="histDiabetes">Diabetes</label>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="form-check p-2 border rounded bg-light">
+                  <input class="form-check-input ms-0 me-2" type="checkbox" id="histAsthma" value="Asthma" />
+                  <label class="form-check-label" for="histAsthma">Asthma</label>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="form-check p-2 border rounded bg-light">
+                  <input class="form-check-input ms-0 me-2" type="checkbox" id="histHeart" value="Heart Condition" />
+                  <label class="form-check-label" for="histHeart">Heart Disease</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label-mt" for="patAllergies">Known Allergies (Medicines or Foods)</label>
+            <input type="text" id="patAllergies" class="form-control"
+                   placeholder="e.g. Penicillin, Sulfa, or leave blank if none" />
+          </div>
+
+          <!-- 4. Consent -->
+          <div class="p-3 border rounded bg-light mb-4">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="consentCheckbox" required checked />
+              <label class="form-check-label" for="consentCheckbox" style="font-size:.88rem;">
+                I agree to record this information for my pre-consultation summary to share with my attending doctor.
+              </label>
+            </div>
+            <div class="form-error" id="consentError">Consent is required to proceed.</div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <a href="dashboard.html" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+            </a>
+            <button type="submit" class="btn btn-mt-primary px-4 py-2">
+              Continue to AI Health Assistant <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/data-store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/forms.js"></script>
+</body>
+</html>
