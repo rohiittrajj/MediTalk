@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.settings import settings
 
 app = FastAPI(title="MediTalk API", description="API foundation for the MediTalk platform.", version="0.1.0", docs_url="/docs" if settings.app_env == "development" else None, redoc_url=None)
